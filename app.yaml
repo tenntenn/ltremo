@@ -1,0 +1,14 @@
+runtime: go
+api_version: go1.9
+module: ltremo
+
+handlers:
+- url: /.*
+  script: _go_app
+  secure: always
+  login: admin
+
+env_variables:
+  NATUREREMO_TOKEN: "Your Token"
+  APPLIANCE: "HDMI Switcher"
+  SIGNALS: "1,2"

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>LT Remo</title>
+    <script src="./easytimer.min.js"></script>
+  </head>
+  <body>
+	<div id="timer">
+		<div class="values"></div>
+	</div>
+
+	<button id="start">Start</button>
+
+	<button id="sig1">1</button>
+	<button id="sig2">2</button>
+    <!--<button id="sig3">3</button>-->
+
+	<script>
+	(function() {
+		var timer = new easytimer.Timer();
+
+		var values = document.querySelector('#timer .values');
+		values.innerText = "00:05:00"
+
+		document.getElementById('start').addEventListener('click', function(e) {
+			timer.start({countdown: true, startValues: {seconds: 5 * 60}});
+		});
+
+		timer.addEventListener('secondsUpdated', function (e) {
+			values.innerText = timer.getTimeValues().toString();
+		});
+
+		timer.addEventListener('targetAchieved', function (e) {
+			var xhr = new XMLHttpRequest();
+			xhr.open("GET", "/change");
+			xhr.send();
+		    values.innerText = "00:05:00";
+		});
+
+        document.getElementById('sig1').addEventListener('click', function(e) {
+			var xhr = new XMLHttpRequest();
+			xhr.open("GET", "/change?s=1");
+			xhr.send();
+            timer.stop();
+		    values.innerText = "00:05:00";
+		});
+
+        document.getElementById('sig2').addEventListener('click', function(e) {
+			var xhr = new XMLHttpRequest();
+			xhr.open("GET", "/change?s=2");
+			xhr.send();
+            timer.stop();
+		    values.innerText = "00:05:00";
+		});
+        
+	})();
+    </script>
+  </body>
+</html>
